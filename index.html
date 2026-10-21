@@ -203,7 +203,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
 /* ====== CONFIGURACIÓN: cambia estos 3 datos ====== */
 const GH_USER = "Emmanuel-Mariam";   // ej: odwinpedraza
 const GH_REPO = "SOFTWARE_EJECUTABLES";      // ej: soporte-web
-const TAG     = "Instaladores";        // nombre de la release donde se guardan los archivos
+const TAG     = "instaladores";        // nombre de la release donde se guardan los archivos
 /* ================================================= */
 
 const $ = id => document.getElementById(id);
@@ -226,13 +226,18 @@ function pintar(){
     </div>`).join("") : `<div class="msg">${assets.length ? "No hay resultados para tu búsqueda." : "Aún no hay instaladores publicados."}</div>`;
 }
 
+async function buscarRelease(h){
+  const r = await fetch(`${API}/releases?per_page=50`, { headers: h || {} });
+  if (!r.ok) return { status: r.status };
+  const l = await r.json();
+  return { rel: l.find(x => x.tag_name.toLowerCase() === TAG.toLowerCase()) };
+}
 async function cargar(){
   if (GH_USER.startsWith("TU_")) { $("lista").innerHTML = '<div class="msg">Configura GH_USER y GH_REPO al inicio del script en index.html.</div>'; return; }
   try {
-    const r = await fetch(`${API}/releases/tags/${TAG}`);
-    if (r.status === 404) { assets = []; pintar(); return; }
-    if (!r.ok) throw 0;
-    assets = (await r.json()).assets; pintar();
+    const b = await buscarRelease();
+    if (b.status) throw 0;
+    assets = b.rel ? b.rel.assets : []; pintar();
   } catch { $("lista").innerHTML = '<div class="msg">No se pudo cargar la lista. Intenta de nuevo.</div>'; }
 }
 $("q").addEventListener("input", pintar);
@@ -240,8 +245,10 @@ $("q").addEventListener("input", pintar);
 /* ---- Administrador ---- */
 const H = () => ({ Authorization: "Bearer " + $("tk").value.trim(), Accept: "application/vnd.github+json" });
 async function release(){
-  let r = await fetch(`${API}/releases/tags/${TAG}`, { headers: H() });
-  if (r.status === 404) r = await fetch(`${API}/releases`, { method:"POST", headers:{...H(),"Content-Type":"application/json"}, body: JSON.stringify({ tag_name: TAG, name: "Instaladores", body: "Instaladores disponibles para descarga." }) });
+  const b = await buscarRelease(H());
+  if (b.status) throw new Error("No se pudo acceder al repositorio " + GH_USER + "/" + GH_REPO + " (HTTP " + b.status + "). Revisa el token y el nombre del repositorio.");
+  if (b.rel) return b.rel;
+  let r = await fetch(`${API}/releases`, { method:"POST", headers:{...H(),"Content-Type":"application/json"}, body: JSON.stringify({ tag_name: TAG, name: "Instaladores", body: "Instaladores disponibles para descarga." }) });
   if (!r.ok) throw new Error("Token inválido o sin permisos (HTTP " + r.status + ")");
   return r.json();
 }
