@@ -111,30 +111,60 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
 .modal .box{width:100%;max-width:420px;background:var(--bg2);border:1px solid var(--cyan);border-radius:22px;padding:30px;box-shadow:0 0 60px rgba(34,211,238,.25)}
 .modal h3{margin-bottom:6px}.modal p{color:var(--mut);font-size:.92rem;margin-bottom:16px}
 .fld select{appearance:auto}
+#sp{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-content:center;justify-items:center;gap:16px;transition:opacity .6s,visibility .6s}
+#sp.x{opacity:0;visibility:hidden}
+#sp .lg{width:84px;height:84px;font-size:2.4rem;border-radius:24px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--cyan));animation:pu2 1.2s ease-in-out infinite}
+@keyframes pu2{50%{transform:scale(1.12);box-shadow:0 0 60px rgba(34,211,238,.8)}}
+#sp b{font-size:1.5rem}#sp .ld{width:180px;height:4px;background:rgba(255,255,255,.1);border-radius:9px;overflow:hidden}
+#sp .ld i{display:block;height:100%;width:40%;background:var(--cyan);animation:ld 1s linear infinite}
+@keyframes ld{from{margin-left:-40%}to{margin-left:100%}}
+#net{position:fixed;inset:0;z-index:-1;pointer-events:none}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:150;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+@keyframes up{from{opacity:0;transform:translateY(24px)}}
+.hero .tag,.hero h1,.hero p,.hero .cta,.stats{animation:up .8s both}
+.hero h1{animation-delay:.1s}.hero p{animation-delay:.25s}.hero .cta{animation-delay:.4s}.stats{animation-delay:.55s}
+.card:after{content:"";position:absolute;inset:0;background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(34,211,238,.14),transparent 40%);opacity:0;transition:.3s;pointer-events:none}
+.card:hover:after{opacity:1}
+.tick{overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--line);background:rgba(10,22,48,.6);padding:8px 0;font-size:.88rem;color:var(--cyan)}
+.tick div{display:inline-block;animation:mq 40s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.nf{grid-column:1/-1;border:2px solid transparent;background:linear-gradient(var(--bg2),var(--bg2)) padding-box,linear-gradient(120deg,var(--blue),var(--cyan),#8b5cf6,var(--blue)) border-box;background-size:100% 100%,300% 300%;animation:bg 6s linear infinite}
+@keyframes bg{to{background-position:0 0,300% 0}}
+.nf h3{font-size:1.7rem;margin-top:12px}.nb{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}.nn h3{margin-top:10px}.nn small{color:var(--mut)}
+#ml .box,#md .box{text-align:center}
+.lock{font-size:3.2rem;animation:fl 4s ease-in-out infinite}
+#otp{display:flex;align-items:center;justify-content:center;margin:18px 0}
+#otp input{width:11.5vw;max-width:46px;height:54px;padding:0;text-align:center;font-size:1.5rem;font-weight:700;border-radius:14px;border:2px solid var(--line);background:rgba(6,14,32,.8);color:var(--txt);outline:none}
+#otp input:focus{border-color:var(--cyan);box-shadow:0 0 0 4px rgba(34,211,238,.18)}
+#otp i{width:10px;height:2px;background:var(--line)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<div id="sp"><div class="lg">⏻</div><b>Odwin Pedraza</b><div class="ld"><i></i></div></div>
+<canvas id="net"></canvas><div id="prog"></div>
 
 <header><div class="wrap nav">
   <a href="#inicio" class="logo"><i>⏻</i><span>Odwin <b>Pedraza</b></span></a>
   <nav><ul id="menu">
-    <li><a href="#servicios">Servicios</a></li><li><a href="#software">Software</a></li><li><a href="#descargas">Descargas</a></li><li><a href="#licencias">Licencias</a></li><li><a href="#contacto">Contacto</a></li>
+    <li><a href="#servicios">Servicios</a></li><li><a href="#noticias">Noticias</a></li><li><a href="#software">Software</a></li><li><a href="#descargas">Descargas</a></li><li><a href="#licencias">Licencias</a></li><li><a href="#contacto">Contacto</a></li>
   </ul></nav>
   <a class="btn p s" href="https://wa.me/573184896105" target="_blank" rel="noopener">WhatsApp</a>
   <button class="burger" onclick="document.getElementById('menu').classList.toggle('o')" aria-label="Menú">☰</button>
 </div></header>
+<div class="tick"><div id="tickin">📢 Bienvenido a Odwin Pedraza · Soporte técnico especializado</div></div>
 
 <main>
 <div class="wrap hero" id="inicio">
   <div>
     <span class="tag">⚡ Soluciones Informáticas &amp; Soporte Técnico Especializado</span>
-    <h1>Tu tecnología en <span class="grad">buenas manos</span></h1>
+    <h1>Tu tecnología en <span class="grad" id="tp">buenas manos</span><span class="cur"></span></h1>
     <p>Diagnóstico de equipos, actualización de sistemas operativos, instalación de software especializado y licencias originales. Soluciones que impulsan tu productividad.</p>
     <div class="cta">
       <a class="btn p" href="#descargas">⬇ Ir a descargas</a>
       <a class="btn g" href="#contacto">Solicitar soporte</a>
     </div>
-    <div class="stats"><div><b>+40</b><span>Programas instalables</span></div><div><b>100%</b><span>Licencias originales</span></div><div><b>24/7</b><span>Atención por WhatsApp</span></div></div>
+    <div class="stats"><div><b data-n="40" data-p="+">+40</b><span>Programas instalables</span></div><div><b data-n="100" data-s="%">100%</b><span>Licencias originales</span></div><div><b>24/7</b><span>Atención por WhatsApp</span></div></div>
   </div>
   <div class="term"><div class="bar"><i></i><i></i><i></i></div>
 <pre><span class="c">odwin@soporte:~$</span> diagnostico --equipo portatil
@@ -157,6 +187,11 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
   <div class="feat rv" style="margin-top:34px"><span>🛡️ Confianza</span><span>⚡ Rapidez</span><span>⚙️ Experiencia</span><span>🤝 Soporte personalizado</span></div>
 </div></section>
 
+<section id="noticias"><div class="wrap">
+  <div class="sh rv"><small>Espacio publicitario</small><h2>Noticias y novedades</h2><p>Ofertas, avisos y consejos tecnológicos de interés.</p></div>
+  <div class="grid g3" id="nws"></div>
+</div></section>
+
 <section id="software"><div class="wrap">
   <div class="sh rv"><small>Instalación de software especializado</small><h2>Catálogo de programas</h2><p>Instalo y configuro el software que necesitas para trabajar, diseñar, producir o proteger tu equipo.</p></div>
   <div class="grid g3">
@@ -171,7 +206,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
 
 <section id="descargas"><div class="wrap">
   <div class="sh rv"><small>Centro de descargas</small><h2>Instaladores disponibles</h2><p>Descarga los instaladores libres directamente. Los instaladores con licencia requieren una contraseña que te entrego al adquirir el servicio.</p></div>
-  <div class="tools"><input id="q" type="search" placeholder="🔎 Buscar instalador..."><button class="btn g s" onclick="cargar()">↻ Actualizar</button><button class="btn g s" onclick="document.getElementById('adm').classList.toggle('on')">🔐 Administrador</button></div>
+  <div class="tools"><input id="q" type="search" placeholder="🔎 Buscar instalador..."><button class="btn g s" onclick="cargar()">↻ Actualizar</button><button class="btn g s" onclick="acceso()">🔐 Acceso administrador</button></div>
 
   <div class="sub">🟢 Instaladores libres <span class="badge b-free">Descarga directa</span></div>
   <div class="grid g3" id="lista"><div class="msg">Cargando instaladores…</div></div>
@@ -179,15 +214,25 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
   <div class="sub">🔒 Instaladores con licencia <span class="badge b-pro">Requieren contraseña</span></div>
   <div class="grid g3" id="listaPro"><div class="msg">Cargando instaladores…</div></div>
 
+  <div class="sub">📄 Documentos y recursos <span class="badge b-free">Descarga directa</span></div>
+  <div class="grid g3" id="listaDoc"><div class="msg">Cargando documentos…</div></div>
+
   <div class="card admin" id="adm">
     <h3>🔐 Panel de administrador — subir instaladores</h3>
     <p style="margin:6px 0 18px">Los archivos se guardan en <b>GitHub Releases</b> de tu repositorio (hasta 2 GB por archivo). El token solo se usa en esta ventana y no se guarda.</p>
     <div class="row">
       <div class="fld"><label>Token de GitHub (permiso Contents: lectura y escritura)</label><input id="tk" type="password" placeholder="github_pat_..." autocomplete="off"></div>
-      <div class="fld"><label>Destino de los archivos</label><select id="dest"><option value="libre">🟢 Libres (descarga directa)</option><option value="pro">🔒 Con contraseña</option></select></div>
+      <div class="fld"><label>Destino de los archivos</label><select id="dest"><option value="libre">🟢 Libres (descarga directa)</option><option value="pro">🔒 Con contraseña</option><option value="doc">📄 Documentos y recursos</option></select></div>
     </div>
     <div class="drop" id="dp" onclick="document.getElementById('fi').click()">📁 Arrastra aquí los instaladores o haz clic para seleccionarlos<input id="fi" type="file" multiple hidden></div>
     <div class="pb"><i id="bar"></i></div><div class="st" id="st"></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
+    <h3>📰 Noticias y publicidad</h3>
+    <div class="row"><div class="fld"><label>Título</label><input id="nt"></div><div class="fld"><label>Etiqueta</label><select id="ng"><option>Noticia</option><option>Oferta</option><option>Aviso</option><option>Tip</option></select></div></div>
+    <div class="fld"><label>Texto</label><textarea id="nx" rows="3"></textarea></div>
+    <div class="fld"><label>Enlace (opcional)</label><input id="nl" placeholder="https://..."></div>
+    <button class="btn p s" onclick="addNoticia()">Publicar noticia</button> <button class="btn g s" onclick="salir()">Cerrar sesión</button>
+    <div class="st" id="ns"></div>
     <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
     <h3>🔑 Generador de contraseña (hash)</h3>
     <p style="margin:6px 0 14px">Escribe la contraseña que quieres usar y copia el resultado en <code>PASS_HASH</code> dentro de <code>index.html</code>.</p>
@@ -203,6 +248,17 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
   <div class="st" id="me" style="color:#f87171;margin:0 0 12px"></div>
   <div style="display:flex;gap:10px"><button class="btn p s" onclick="validar()">Descargar</button><button class="btn g s" onclick="cerrar()">Cancelar</button></div>
   <p style="margin:16px 0 0">¿No tienes la contraseña? <a href="#contacto" onclick="cerrar()" style="color:var(--cyan)">Solicítala aquí</a></p>
+</div></div>
+
+<div class="modal" id="ml"><div class="box">
+  <div class="lock">🔓</div><h3>Acceso administrador</h3>
+  <div id="s1"><p>Ingresa tu usuario y contraseña.</p>
+    <div class="fld"><input id="lu" placeholder="Usuario" autocomplete="username"></div>
+    <div class="fld"><input id="lp" type="password" placeholder="Contraseña" autocomplete="current-password"></div>
+    <button class="btn p s" onclick="paso1()">Continuar</button></div>
+  <div id="s2" style="display:none"><p>Ingresa el código de 6 dígitos de tu app autenticadora.</p><div id="otp"></div></div>
+  <div class="st" id="le" style="color:#f87171"></div>
+  <button class="btn g s" style="margin-top:14px" onclick="cerrarL()">Cancelar</button>
 </div></div>
 
 <section id="contacto"><div class="wrap">
@@ -233,14 +289,16 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
 /* ====== CONFIGURACIÓN ====== */
 const GH_USER  = "Emmanuel-Mariam";
 const GH_REPO  = "SOFTWARE_EJECUTABLES";
-const TAG_LIBRE = "Instaladores";   // release de instaladores libres
-const TAG_PRO   = "Protegidos";     // release de instaladores con contraseña
-const PASS_HASH = "6f44d216a067a6bff105d68e822565fb2c7d9952f9e5ce866922d194d84cec26";               // pega aquí el hash generado en el panel de administrador
+const TAG_LIBRE = "instaladores";   // release de instaladores libres
+const TAG_PRO   = "protegidos";     // release de instaladores con contraseña
+const TAG_DOC   = "documentos";     // release de documentos y recursos
+const PASS_HASH = "6f44d216a067a6bff105d68e822565fb2c7d9952f9e5ce866922d194d84cec26";
+const AUTH = {"it":250000,"salt":"57d5563ccb1ab17c853932be82d7e1d5","ver":"42a50e9b22a5a9f68ab6f49661dfd29fd5eb7c4a7259012c0d43120e162ac594","iv":"2b21af7c7025df18d6f23141","ct":"226edc78d03320ea5881d4b4946f2951edc0899960ceee1488fabede4321e661b4c34af1"};                  // pega aquí el bloque que genera configurar.html               // pega aquí el hash generado en el panel de administrador
 /* =========================== */
 
 const $ = id => document.getElementById(id);
 const API = `https://api.github.com/repos/${GH_USER}/${GH_REPO}`;
-let libres = [], pro = [], pendiente = null;
+let libres = [], pro = [], docs = [], pendiente = null;
 
 const fmt = b => b > 1073741824 ? (b/1073741824).toFixed(2)+" GB" : b > 1048576 ? (b/1048576).toFixed(1)+" MB" : Math.max(1,Math.round(b/1024))+" KB";
 const icon = n => { n=n.toLowerCase(); return /\.(exe|msi)$/.test(n)?"🪟":/\.(zip|rar|7z)$/.test(n)?"🗜️":/\.iso$/.test(n)?"💿":/\.pdf$/.test(n)?"📕":/\.(dmg|pkg)$/.test(n)?"🍎":"📦"; };
@@ -248,7 +306,7 @@ const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'
 const sha = async t => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)))].map(b => b.toString(16).padStart(2,"0")).join("");
 
 function tarjeta(a, protegido){
-  const admin = $("adm").classList.contains("on") && $("tk").value;
+  const admin = sesion() && $("tk").value;
   const accion = protegido
     ? `<button class="btn p s" onclick="pedir(${a.id})">🔒 Descargar</button>`
     : `<a class="btn p s" href="${a.browser_download_url}">⬇ Descargar</a>`;
@@ -264,6 +322,7 @@ function lista(el, arr, protegido, vacio){
 function pintar(){
   lista($("lista"), libres, false, "Aún no hay instaladores libres publicados.");
   lista($("listaPro"), pro, true, "Aún no hay instaladores con contraseña publicados.");
+  lista($("listaDoc"), docs, false, "Aún no hay documentos publicados.");
 }
 
 async function buscarRelease(tag, h){
@@ -275,10 +334,10 @@ async function buscarRelease(tag, h){
 
 async function cargar(){
   try {
-    const [a, b] = await Promise.all([buscarRelease(TAG_LIBRE), buscarRelease(TAG_PRO)]);
-    if (a.status || b.status) throw 0;
-    libres = a.rel ? a.rel.assets : []; pro = b.rel ? b.rel.assets : []; pintar();
-  } catch { $("lista").innerHTML = $("listaPro").innerHTML = '<div class="msg">No se pudo cargar la lista. Intenta de nuevo.</div>'; }
+    const [a, b, c] = await Promise.all([buscarRelease(TAG_LIBRE), buscarRelease(TAG_PRO), buscarRelease(TAG_DOC)]);
+    if (a.status || b.status || c.status) throw 0;
+    libres = a.rel ? a.rel.assets : []; pro = b.rel ? b.rel.assets : []; docs = c.rel ? c.rel.assets : []; pintar();
+  } catch { $("lista").innerHTML = $("listaPro").innerHTML = $("listaDoc").innerHTML = '<div class="msg">No se pudo cargar la lista. Intenta de nuevo.</div>'; }
 }
 $("q").addEventListener("input", pintar);
 
@@ -305,7 +364,7 @@ async function generarHash(){
 
 /* ---- Administrador ---- */
 const H = () => ({ Authorization: "Bearer " + $("tk").value.trim(), Accept: "application/vnd.github+json" });
-const destino = () => $("dest").value === "pro" ? { tag: TAG_PRO, nombre: "Instaladores con contraseña" } : { tag: TAG_LIBRE, nombre: "Instaladores" };
+const destino = () => ({ pro: { tag: TAG_PRO, nombre: "Instaladores con contraseña" }, doc: { tag: TAG_DOC, nombre: "Documentos y recursos" } }[$("dest").value] || { tag: TAG_LIBRE, nombre: "Instaladores" });
 async function release(){
   const d = destino();
   const b = await buscarRelease(d.tag, H());
@@ -348,6 +407,112 @@ const dp = $("dp");
 dp.addEventListener("drop", e => procesar(e.dataTransfer.files));
 $("tk").addEventListener("input", pintar);
 
+/* ---- Acceso: usuario + contraseña + código 2FA (TOTP) ---- */
+const enc = new TextEncoder(), hx = u => [...u].map(b => b.toString(16).padStart(2,"0")).join(""), unhx = h => Uint8Array.from(h.match(/../g), x => parseInt(x,16));
+let secreto = null;
+const sesion = () => +sessionStorage.getItem("ses") > Date.now();
+function acceso(){
+  if (sesion()) return $("adm").classList.toggle("on");
+  if (!AUTH) { alert("Aún no está configurado el acceso. Usa configurar.html y pega el bloque AUTH en index.html."); return; }
+  $("lu").value = $("lp").value = ""; $("le").textContent = ""; ver(1); $("ml").classList.add("on"); setTimeout(() => $("lu").focus(), 50);
+}
+const ver = n => { $("s1").style.display = n === 1 ? "" : "none"; $("s2").style.display = n === 2 ? "" : "none"; };
+function cerrarL(){ $("ml").classList.remove("on"); secreto = null; }
+function fallo(m){
+  const n = (+localStorage.getItem("fa") || 0) + 1; localStorage.setItem("fa", n);
+  if (n >= 5) { localStorage.setItem("bl", Date.now() + 300000); localStorage.setItem("fa", 0); m = "Demasiados intentos. Espera 5 minutos."; ver(1); secreto = null; }
+  $("le").textContent = "❌ " + m;
+}
+async function paso1(){
+  if ((+localStorage.getItem("bl") || 0) > Date.now()) { $("le").textContent = "❌ Demasiados intentos. Espera unos minutos."; return; }
+  $("le").textContent = "Verificando…";
+  const k = await crypto.subtle.importKey("raw", enc.encode($("lu").value.trim().toLowerCase() + ":" + $("lp").value), "PBKDF2", false, ["deriveBits"]);
+  const d = new Uint8Array(await crypto.subtle.deriveBits({ name:"PBKDF2", salt: unhx(AUTH.salt), iterations: AUTH.it, hash:"SHA-256" }, k, 512));
+  if (hx(d.slice(0,32)) !== AUTH.ver) return fallo("Usuario o contraseña incorrectos.");
+  const ak = await crypto.subtle.importKey("raw", d.slice(32), "AES-GCM", false, ["decrypt"]);
+  secreto = new Uint8Array(await crypto.subtle.decrypt({ name:"AES-GCM", iv: unhx(AUTH.iv) }, ak, unhx(AUTH.ct)));
+  $("le").textContent = ""; ver(2); OT()[0].focus();
+}
+async function totp(sec, t){
+  const k = await crypto.subtle.importKey("raw", sec, { name:"HMAC", hash:"SHA-1" }, false, ["sign"]);
+  const c = new DataView(new ArrayBuffer(8)); c.setUint32(4, t);
+  const h = new Uint8Array(await crypto.subtle.sign("HMAC", k, c.buffer)), o = h[19] & 15;
+  return String((((h[o] & 127) << 24 | h[o+1] << 16 | h[o+2] << 8 | h[o+3]) % 1e6)).padStart(6, "0");
+}
+const OT = () => [...document.querySelectorAll("#otp input")];
+async function paso2(c){
+  const t = Math.floor(Date.now() / 30000);
+  for (const d of [-1, 0, 1]) if (await totp(secreto, t + d) === c) {
+    sessionStorage.setItem("ses", Date.now() + 1800000); localStorage.setItem("fa", 0);
+    cerrarL(); $("adm").classList.add("on"); pintar(); pintarNoticias(); return;
+  }
+  fallo("Código incorrecto."); OT().forEach(x => x.value = ""); OT()[0] && OT()[0].focus();
+}
+function salir(){ sessionStorage.removeItem("ses"); $("adm").classList.remove("on"); pintar(); pintarNoticias(); }
+$("otp").innerHTML = Array(6).fill('<input inputmode="numeric" maxlength="1" autocomplete="one-time-code">').join("<i></i>");
+$("otp").addEventListener("input", e => { const a = OT(), i = a.indexOf(e.target); e.target.value = e.target.value.replace(/\D/g,""); if (e.target.value && a[i+1]) a[i+1].focus(); if (a.every(x => x.value)) paso2(a.map(x => x.value).join("")); });
+$("otp").addEventListener("keydown", e => { const a = OT(), i = a.indexOf(e.target); if (e.key === "Backspace" && !e.target.value && a[i-1]) a[i-1].focus(); });
+$("otp").addEventListener("paste", e => { const t = (e.clipboardData.getData("text") || "").replace(/\D/g,"").slice(0,6); if (!t) return; e.preventDefault(); OT().forEach((x,i) => x.value = t[i] || ""); if (t.length === 6) paso2(t); });
+$("lp").addEventListener("keydown", e => e.key === "Enter" && paso1());
+
+/* ---- Noticias (se guardan en noticias.json del repositorio) ---- */
+let noticias = [], nsha = null;
+const NDEF = [{ id:0, t:"¡Bienvenido a mi centro de soporte!", x:"Instalación de software, licencias originales y soporte técnico personalizado.", g:"Aviso" }];
+async function cargarNoticias(){
+  try {
+    const r = await fetch(`${API}/contents/noticias.json?t=${Date.now()}`, { headers: { Accept: "application/vnd.github+json" } });
+    if (r.ok) { const j = await r.json(); nsha = j.sha; noticias = JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,""))))); } else { noticias = []; nsha = null; }
+  } catch { noticias = []; }
+  pintarNoticias();
+}
+function pintarNoticias(){
+  const l = noticias.length ? noticias : NDEF, a = sesion() && noticias.length;
+  const del = n => a ? `<button class="btn g s" onclick="delNoticia(${n.id})">🗑</button>` : "";
+  const lk = n => /^https?:\/\//.test(n.l || "") ? `<a class="btn p s" href="${esc(n.l)}" target="_blank" rel="noopener">Ver más ➜</a>` : "";
+  const fe = n => n.id > 1e6 ? new Date(n.id).toLocaleDateString("es-CO") : "";
+  const [f, ...r] = l;
+  $("nws").innerHTML = `<div class="card nf"><span class="badge b-pro">${esc(f.g)}</span> <small style="color:var(--mut)">${fe(f)}</small><h3>${esc(f.t)}</h3><p>${esc(f.x)}</p><div class="nb">${lk(f)}${del(f)}</div></div>` +
+    r.map(n => `<div class="card nn"><span class="badge b-free">${esc(n.g)}</span> <small>${fe(n)}</small><h3>${esc(n.t)}</h3><p>${esc(n.x)}</p><div class="nb">${lk(n)}${del(n)}</div></div>`).join("");
+  const tk = l.map(n => "📢 " + n.t).join("  ·  ") + "  ·  "; $("tickin").textContent = tk + tk;
+}
+async function guardarNoticias(){
+  const body = { message: "Actualizar noticias", content: btoa(unescape(encodeURIComponent(JSON.stringify(noticias, null, 1)))) }; if (nsha) body.sha = nsha;
+  const r = await fetch(`${API}/contents/noticias.json`, { method:"PUT", headers: { ...H(), "Content-Type":"application/json" }, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error("No se pudo guardar (HTTP " + r.status + "). Revisa el token.");
+  nsha = (await r.json()).content.sha;
+}
+async function addNoticia(){
+  const t = $("nt").value.trim(), x = $("nx").value.trim(), l = $("nl").value.trim();
+  if (!$("tk").value.trim()) { $("ns").textContent = "⚠ Ingresa tu token de GitHub arriba."; return; }
+  if (!t || !x) { $("ns").textContent = "⚠ Escribe título y texto."; return; }
+  if (l && !/^https?:\/\//.test(l)) { $("ns").textContent = "⚠ El enlace debe empezar por https://"; return; }
+  try { $("ns").textContent = "Publicando…"; await cargarNoticias(); noticias.unshift({ id: Date.now(), t, x, g: $("ng").value, l }); await guardarNoticias(); $("nt").value = $("nx").value = $("nl").value = ""; $("ns").textContent = "✅ Noticia publicada."; pintarNoticias(); }
+  catch (e) { $("ns").textContent = "❌ " + e.message; await cargarNoticias(); }
+}
+async function delNoticia(id){
+  if (!confirm("¿Eliminar esta noticia?")) return;
+  if (!$("tk").value.trim()) { alert("Ingresa tu token de GitHub en el panel."); return; }
+  try { await cargarNoticias(); noticias = noticias.filter(n => n.id !== id); await guardarNoticias(); pintarNoticias(); } catch (e) { alert(e.message); }
+}
+
+/* ---- Animaciones ---- */
+(function(){
+  const e = $("tp"), w = ["buenas manos","soporte experto","equipos seguros"]; let i = 0, c = w[0].length, d = 1;
+  if (!matchMedia("(prefers-reduced-motion:reduce)").matches) setInterval(() => { c += d; e.textContent = w[i].slice(0, c); if (d > 0 && c >= w[i].length) { d = 0; setTimeout(() => d = -1, 1600); } else if (d < 0 && c <= 0) { d = 1; i = (i + 1) % w.length; } }, 90);
+})();
+const co = new IntersectionObserver(es => es.forEach(x => { if (!x.isIntersecting) return; co.unobserve(x.target); const e = x.target, n = +e.dataset.n, t0 = performance.now(); (function f(t){ const p = Math.min(1, (t - t0) / 1400); e.textContent = (e.dataset.p || "") + Math.round(n * p) + (e.dataset.s || ""); if (p < 1) requestAnimationFrame(f); })(t0); }));
+document.querySelectorAll("[data-n]").forEach(e => co.observe(e));
+(function(){
+  const c = $("net"), x = c.getContext("2d"); let W, Hh, P = [];
+  const rs = () => { W = c.width = innerWidth; Hh = c.height = innerHeight; P = Array.from({ length: Math.min(70, W / 16 | 0) }, () => ({ x: Math.random() * W, y: Math.random() * Hh, vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4 })); };
+  rs(); addEventListener("resize", rs);
+  (function f(){ x.clearRect(0, 0, W, Hh); P.forEach((p, i) => { p.x = (p.x + p.vx + W) % W; p.y = (p.y + p.vy + Hh) % Hh; x.fillStyle = "rgba(34,211,238,.6)"; x.fillRect(p.x, p.y, 2, 2);
+    for (let j = i + 1; j < P.length; j++) { const q = P[j], d = Math.hypot(p.x - q.x, p.y - q.y); if (d < 130) { x.strokeStyle = `rgba(30,144,255,${.22 * (1 - d / 130)})`; x.beginPath(); x.moveTo(p.x, p.y); x.lineTo(q.x, q.y); x.stroke(); } } }); requestAnimationFrame(f); })();
+})();
+document.addEventListener("mousemove", e => { const c = e.target.closest && e.target.closest(".card"); if (c) { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", e.clientX - r.left + "px"); c.style.setProperty("--my", e.clientY - r.top + "px"); } });
+addEventListener("scroll", () => $("prog").style.width = scrollY / (document.documentElement.scrollHeight - innerHeight) * 100 + "%");
+const ocultar = () => $("sp").classList.add("x"); addEventListener("load", () => setTimeout(ocultar, 900)); setTimeout(ocultar, 3500);
+
 /* ---- Formulario (Web3Forms) ---- */
 $("fm").addEventListener("submit", async e => {
   e.preventDefault();
@@ -365,7 +530,7 @@ const io = new IntersectionObserver(es => es.forEach(x => x.isIntersecting && x.
 document.querySelectorAll(".rv").forEach(el => io.observe(el));
 document.querySelectorAll("#menu a").forEach(a => a.onclick = () => $("menu").classList.remove("o"));
 $("y").textContent = new Date().getFullYear();
-cargar();
+cargar(); cargarNoticias();
 </script>
 </body>
 </html>
